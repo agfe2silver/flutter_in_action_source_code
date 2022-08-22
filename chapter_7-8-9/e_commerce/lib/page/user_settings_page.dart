@@ -21,25 +21,28 @@ class UserSettingsPage extends StatelessWidget {
         CustomScrollView(
           slivers: <Widget>[
             CustomSliverHeader(
-              headerText: "Profile",
+              headerText: 'Profile',
             ),
             SliverToBoxAdapter(
               child: UserProfileForm(),
             ),
             CustomSliverHeader(
-              headerText: "My Products",
+              headerText: 'My Products',
             ),
             StreamBuilder<ECommerceUser>(
               stream: _bloc.user,
               initialData: ECommerceUser(userProducts: []),
-              builder: (BuildContext context, AsyncSnapshot<ECommerceUser> snapshot) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<ECommerceUser> snapshot) {
                 return SliverList(
-                  delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+                  delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
                     var _product = snapshot.data.userProducts[index];
                     return Container(
                         decoration: BoxDecoration(
                           border: Border(
-                            bottom: BorderSide(width: .5, color: Colors.black54),
+                            bottom:
+                                BorderSide(width: .5, color: Colors.black54),
                           ),
                         ),
                         child: Dismissible(
@@ -56,11 +59,12 @@ class UserSettingsPage extends StatelessWidget {
                               SnackBar(
                                 backgroundColor: AppColors.primary,
                                 content: Text(
-                                  "${_product.title} deleted.",
+                                  '${_product.title} deleted.',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline
-                                      .copyWith(color: AppColors.accentTextColor),
+                                      .headline5
+                                      .copyWith(
+                                          color: AppColors.accentTextColor),
                                 ),
                               ),
                             );
@@ -77,7 +81,7 @@ class UserSettingsPage extends StatelessWidget {
           right: Spacing.matGridUnit(),
           child: FloatingActionButton.extended(
               icon: Icon(Icons.add),
-              label: Text("New Product"),
+              label: Text('New Product'),
               onPressed: () {
                 Navigator.push(
                   context,

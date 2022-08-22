@@ -23,7 +23,9 @@ class AppStateContainer extends StatefulWidget {
   State<StatefulWidget> createState() => AppState();
 
   static AppState of(BuildContext context) {
-    return (context.inheritFromWidgetOfExactType(_AppStoreContainer) as _AppStoreContainer).appData;
+    return context
+        .dependOnInheritedWidgetOfExactType<_AppStoreContainer>()
+        .appData;
   }
 }
 
@@ -62,7 +64,8 @@ class _AppStoreContainer extends InheritedWidget {
   }) : super(key: key, child: child);
 
   @override
-  bool updateShouldNotify(_AppStoreContainer oldWidget) => oldWidget.appData != this.appData;
+  bool updateShouldNotify(_AppStoreContainer oldWidget) =>
+      oldWidget.appData != this.appData;
 }
 
 class ServiceProvider {

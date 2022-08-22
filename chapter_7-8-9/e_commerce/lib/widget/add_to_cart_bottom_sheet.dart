@@ -39,11 +39,12 @@ class _AddToCartBottomSheetState extends State<AddToCartBottomSheet> {
             padding: EdgeInsets.all(Spacing.matGridUnit()),
             child: Text(
               "Add item to Cart",
-              style: Theme.of(context).primaryTextTheme.display1,
+              style: Theme.of(context).primaryTextTheme.headline4,
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: Spacing.matGridUnit(scale: 3)),
+            padding:
+                EdgeInsets.symmetric(vertical: Spacing.matGridUnit(scale: 3)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
@@ -57,7 +58,7 @@ class _AddToCartBottomSheetState extends State<AddToCartBottomSheet> {
                     }),
                 Text(
                   _quantity.toString(),
-                  style: Theme.of(context).primaryTextTheme.headline,
+                  style: Theme.of(context).primaryTextTheme.headline5,
                 ),
                 IconButton(
                   iconSize: 40.0,
@@ -69,11 +70,13 @@ class _AddToCartBottomSheetState extends State<AddToCartBottomSheet> {
               ],
             ),
           ),
-          RaisedButton(
-            color: AppColors.primary[500],
-            textColor: Colors.white,
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: AppColors.primary[500],
+              onPrimary: Colors.white,
+            ),
             child: Text(
-              "Add To Cart".toUpperCase(),
+              'Add To Cart'.toUpperCase(),
             ),
 //            onPressed: () => state.updateCartTotal(_quantity)
             onPressed: () => Navigator.of(context).pop(_quantity),

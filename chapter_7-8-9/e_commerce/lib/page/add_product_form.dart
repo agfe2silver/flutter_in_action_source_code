@@ -69,9 +69,11 @@ class _AddProductFormState extends State<AddProductForm> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: FlatButton(
-                      textColor: Colors.red[400],
-                      child: Text("Cancel"),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        primary: Colors.red[400],
+                      ),
+                      child: Text('Cancel'),
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -79,9 +81,11 @@ class _AddProductFormState extends State<AddProductForm> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: RaisedButton(
-                      color: Colors.blue[400],
-                      child: Text("Submit"),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        onPrimary: Colors.blue[400],
+                      ),
+                      child: Text('Submit'),
                       onPressed: _submitForm,
                     ),
                   )
@@ -105,13 +109,13 @@ class _AddProductFormState extends State<AddProductForm> {
         child: TextFormField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
-            helperText: "Required",
-            labelText: "Title",
+            helperText: 'Required',
+            labelText: 'Title',
           ),
           autofocus: true,
           validator: (String val) {
             if (val.isEmpty) {
-              return "Field cannot be left blank";
+              return 'Field cannot be left blank';
             }
             return null;
           },
@@ -126,17 +130,17 @@ class _AddProductFormState extends State<AddProductForm> {
       child: TextFormField(
         decoration: InputDecoration(
           border: OutlineInputBorder(),
-          labelText: "Cost Per Unit",
-          helperText: "Required",
+          labelText: 'Cost Per Unit',
+          helperText: 'Required',
         ),
         keyboardType: TextInputType.numberWithOptions(),
-        autovalidate: true,
+        autovalidateMode: AutovalidateMode.always,
         validator: (String val) {
           if (val.isEmpty) {
-            return "Field cannot be left blank";
+            return 'Field cannot be left blank';
           }
           if (double.tryParse(val) == null) {
-            return "Field must contain a valid number.";
+            return 'Field must contain a valid number.';
           }
           return null;
         },
@@ -150,14 +154,15 @@ class _AddProductFormState extends State<AddProductForm> {
       child: DropdownButtonFormField<ProductCategory>(
         decoration: InputDecoration(
           border: OutlineInputBorder(),
-          labelText: "Category",
+          labelText: 'Category',
         ),
         value: _newProduct.category,
         onChanged: (ProductCategory newSelection) {
           setState(() => _newProduct.category = newSelection);
         },
         items: ProductCategory.values.map((ProductCategory category) {
-          return DropdownMenuItem(value: category, child: Text(category.toString()));
+          return DropdownMenuItem(
+              value: category, child: Text(category.toString()));
         }).toList(),
       ),
     );
@@ -168,8 +173,10 @@ class _AddProductFormState extends State<AddProductForm> {
       child: FormField(
         builder: (FormFieldState state) {
           return DateInputField(
-            labelText: "Date Added",
-            valueText: _newProduct.dateAdded != null ? formatDate(_newProduct.dateAdded) : null,
+            labelText: 'Date Added',
+            valueText: _newProduct.dateAdded != null
+                ? formatDate(_newProduct.dateAdded)
+                : null,
             onPressed: () async {
               var date = await showDatePicker(
                   context: context,
@@ -201,7 +208,7 @@ class _AddProductFormState extends State<AddProductForm> {
             decoration: _image,
           ),
         ),
-        _selected == null ? Text("Select an image") : Container(),
+        _selected == null ? Text('Select an image') : Container(),
         Positioned(
           right: 8.0,
           bottom: 8.0,
@@ -210,9 +217,10 @@ class _AddProductFormState extends State<AddProductForm> {
             foregroundColor: Colors.grey[300],
             child: Icon(Icons.photo_library),
             onPressed: () async {
-              File image = await ImagePicker.pickImage(source: ImageSource.gallery);
+              var image =
+                  await ImagePicker().pickImage(source: ImageSource.gallery);
               setState(() {
-                _selected = image;
+                _selected = File(image.path);
               });
             },
           ),
@@ -225,7 +233,8 @@ class _AddProductFormState extends State<AddProductForm> {
     return _selected == null
         ? BoxDecoration(color: Colors.grey[300])
         : BoxDecoration(
-            image: DecorationImage(image: FileImage(_selected), fit: BoxFit.cover),
+            image:
+                DecorationImage(image: FileImage(_selected), fit: BoxFit.cover),
           );
   }
 
@@ -249,17 +258,21 @@ class _AddProductFormState extends State<AddProductForm> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-                content:
-                    Text("Are you sure you want to abandon the form? Any changes will be lost."),
+                content: Text(
+                    'Are you sure you want to abandon the form? Any changes will be lost.'),
                 actions: <Widget>[
-                  FlatButton(
-                    child: Text("Cancel"),
+                  TextButton(
+                    child: Text('Cancel'),
                     onPressed: () => Navigator.of(context).pop(false),
-                    textColor: Colors.black,
+                    style: TextButton.styleFrom(
+                      primary: Colors.black,
+                    ),
                   ),
-                  FlatButton(
-                    child: Text("Abandon"),
-                    textColor: Colors.red,
+                  TextButton(
+                    child: Text('Abandon'),
+                    style: TextButton.styleFrom(
+                      primary: Colors.red,
+                    ),
                     onPressed: () => Navigator.pop(context, true),
                   ),
                 ],
@@ -271,7 +284,8 @@ class _AddProductFormState extends State<AddProductForm> {
   void _submitForm() {
     _formKey.currentState.save();
     _bloc.addNewProduct.add(AddProductEvent(_newProduct));
-    _userBloc.addNewProductToUserProductsSink.add(NewUserProductEvent(_newProduct));
+    _userBloc.addNewProductToUserProductsSink
+        .add(NewUserProductEvent(_newProduct));
     Navigator.of(context).pop();
   }
 
@@ -283,6 +297,6 @@ class _AddProductFormState extends State<AddProductForm> {
     var month = d.month;
     var day = d.day;
     var year = d.year;
-    return "$month/$day/$year";
+    return '$month/$day/$year';
   }
 }

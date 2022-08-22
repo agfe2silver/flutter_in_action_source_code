@@ -15,14 +15,16 @@ class UserBloc {
   final UserService _service;
 
   //Inputs
-  StreamController<UpdateUserEvent> updateUserInformationSink = StreamController<UpdateUserEvent>();
+  StreamController<UpdateUserEvent> updateUserInformationSink =
+      StreamController<UpdateUserEvent>();
   StreamController<NewUserProductEvent> addNewProductToUserProductsSink =
       StreamController<NewUserProductEvent>();
 
   // Outputs
   Stream<ECommerceUser> get user => _userStreamController.stream;
-  StreamController _userStreamController = BehaviorSubject<ECommerceUser>(
-      seedValue: ECommerceUser(name: "Eric Windmill", contact: "eric@ericwindmill.com"));
+  StreamController _userStreamController =
+      BehaviorSubject<ECommerceUser>.seeded(ECommerceUser(
+          name: "Eric Windmill", contact: "eric@ericwindmill.com"));
 
   UserBloc(this._service) {
     updateUserInformationSink.stream.listen(_handleNewUserInformation);

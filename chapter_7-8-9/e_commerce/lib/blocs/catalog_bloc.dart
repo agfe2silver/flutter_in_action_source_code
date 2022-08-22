@@ -16,7 +16,8 @@ class CatalogBloc {
 
   // Output products
   StreamController _productStreamController =
-      BehaviorSubject<List<Product>>(seedValue: populateCatalog().availableProducts);
+      BehaviorSubject<List<Product>>.seeded(
+          populateCatalog().availableProducts);
   Stream<List<Product>> get allProducts => _productStreamController.stream;
 
   List<StreamController<List<Product>>> _controllersByCategory = [];
@@ -50,7 +51,8 @@ class CatalogBloc {
       return _controllersByCategory.add(_controller);
     });
 
-    _controllersByCategory.forEach((StreamController<List<Product>> controller) {
+    _controllersByCategory
+        .forEach((StreamController<List<Product>> controller) {
       productStreamsByCategory.add(controller.stream);
     });
   }

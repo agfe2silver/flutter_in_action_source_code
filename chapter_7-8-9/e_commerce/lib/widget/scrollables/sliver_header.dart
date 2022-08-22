@@ -12,7 +12,8 @@ class CustomSliverHeader extends StatelessWidget {
   final String headerText;
   final Function onTap;
 
-  const CustomSliverHeader({Key key, this.scrollPosition, this.headerText, this.onTap})
+  const CustomSliverHeader(
+      {Key key, this.scrollPosition, this.headerText, this.onTap})
       : super(key: key);
 
   @override
@@ -29,16 +30,19 @@ class CustomSliverHeader extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 Center(
-                  child:
-                      Container(decoration: BoxDecoration(color: AppColors.textColor), height: .5),
+                  child: Container(
+                      decoration: BoxDecoration(color: AppColors.textColor),
+                      height: .5),
                 ),
                 Center(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: Spacing.matGridUnit()),
-                    decoration: BoxDecoration(color: Theme.of(context).backgroundColor),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: Spacing.matGridUnit()),
+                    decoration:
+                        BoxDecoration(color: Theme.of(context).backgroundColor),
                     child: Text(
                       headerText,
-                      style: Theme.of(context).textTheme.subhead,
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
                   ),
                 ),
@@ -67,7 +71,8 @@ class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   double get maxExtent => math.max(maxHeight, minHeight);
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox.expand(child: child);
   }
 

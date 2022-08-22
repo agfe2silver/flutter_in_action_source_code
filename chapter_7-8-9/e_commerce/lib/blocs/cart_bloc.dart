@@ -13,16 +13,19 @@ class CartBloc {
   final CartService _service;
 
   // Inputs
-  StreamController<AddToCartEvent> addProductSink = StreamController<AddToCartEvent>();
+  StreamController<AddToCartEvent> addProductSink =
+      StreamController<AddToCartEvent>();
   StreamController<RemoveFromCartEvent> removeFromCartSink =
       StreamController<RemoveFromCartEvent>();
 
   // Outputs
   Stream<Map<String, int>> get cartItems => _cartItemStreamController.stream;
-  StreamController _cartItemStreamController = BehaviorSubject<Map<String, int>>(seedValue: {});
+  StreamController _cartItemStreamController =
+      BehaviorSubject<Map<String, int>>.seeded(Map());
 
   Stream<int> get cartItemCount => _cartItemCountStreamController.stream;
-  StreamController _cartItemCountStreamController = BehaviorSubject<int>(seedValue: 0);
+  StreamController _cartItemCountStreamController =
+      BehaviorSubject<int>.seeded(0);
 
   CartBloc(this._service) {
     // Listen to inputs

@@ -28,15 +28,15 @@ class PageContainer extends PageContainerBase {
   String get pageTitle {
     switch (pageType) {
       case PageType.Cart:
-        return "My Cart";
+        return 'My Cart';
       case PageType.Settings:
-        return "My Settings";
+        return 'My Settings';
         break;
       case PageType.AddProductForm:
-        return "Add Product";
+        return 'Add Product';
       case PageType.Catalog:
       default:
-        return "The Farmers Market";
+        return 'The Farmers Market';
     }
   }
 
@@ -76,7 +76,7 @@ class ProductDetailPageContainer extends PageContainerBase {
   Widget get body => ProductDetailPage(product: product);
 
   @override
-  String get pageTitle => "";
+  String get pageTitle => '';
 
   @override
   Widget get menuDrawer => null;
@@ -98,7 +98,7 @@ class AddNewProductPageContainer extends PageContainerBase {
   Widget get body => AddProductForm();
 
   @override
-  String get pageTitle => "Add Product";
+  String get pageTitle => 'Add Product';
 
   @override
   Widget get menuDrawer => null;

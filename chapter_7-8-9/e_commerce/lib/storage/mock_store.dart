@@ -19,14 +19,20 @@ class AppStore {
   ECommerceUser _user;
 
   StreamController<Cart> cartNotifier = StreamController<Cart>.broadcast();
-  StreamController<Catalog> catalogNotifier = StreamController<Catalog>.broadcast();
-  StreamController<ECommerceUser> userNotifier = StreamController<ECommerceUser>.broadcast();
+  StreamController<Catalog> catalogNotifier =
+      StreamController<Catalog>.broadcast();
+  StreamController<ECommerceUser> userNotifier =
+      StreamController<ECommerceUser>.broadcast();
 
   AppStore() {
     // initialize app fake data
     _cart = buildInitialCart();
     _catalog = populateCatalog();
-    _user = ECommerceUser(name: "Eric Windmill", contact: "eric@ericwindmill.com", userProducts: []);
+    // ignore: prefer_single_quotes
+    _user = ECommerceUser(
+        name: 'Eric Windmill',
+        contact: "eric@ericwindmill.com",
+        userProducts: []);
     // emit initial events, notifying the UI
     Future.delayed(Duration(milliseconds: 500), () {
       catalogNotifier.add(_catalog);

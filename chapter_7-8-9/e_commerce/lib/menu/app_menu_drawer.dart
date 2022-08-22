@@ -38,51 +38,50 @@ class AppMenuState extends State<AppMenu> with RouteAware {
 
   @override
   Widget build(BuildContext context) {
-    _activeRoute ??= "/";
+    _activeRoute ??= '/';
 
     return Drawer(
       child: ListView(
         children: <Widget>[
           StreamBuilder(
-            initialData: ECommerceUser(name: "", contact: ""),
+            initialData: ECommerceUser(name: '', contact: ''),
             stream: _bloc.user,
             builder: (BuildContext context, AsyncSnapshot<ECommerceUser> s) =>
                 UserAccountsDrawerHeader(
-                  currentAccountPicture: CircleAvatar(
-                    backgroundImage:
-                        AssetImage("assets/images/apple-in-hand.jpg"),
-                  ),
-                  accountEmail: Text(s.data.contact),
-                  accountName: Text(s.data.name),
-                  onDetailsPressed: () {
-                    Navigator.pushReplacementNamed(
-                        context, ECommerceRoutes.userSettingsPage);
-                  },
-                ),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage('assets/images/apple-in-hand.jpg'),
+              ),
+              accountEmail: Text(s.data.contact),
+              accountName: Text(s.data.name),
+              onDetailsPressed: () {
+                Navigator.pushReplacementNamed(
+                    context, ECommerceRoutes.userSettingsPage);
+              },
+            ),
           ),
           ListTile(
             leading: Icon(Icons.apps),
-            title: Text("Catalog"),
+            title: Text('Catalog'),
             selected: _activeRoute == ECommerceRoutes.catalogPage,
             onTap: () => _navigate(ECommerceRoutes.catalogPage),
           ),
           ListTile(
             leading: Icon(Icons.shopping_cart),
-            title: Text("Cart"),
+            title: Text('Cart'),
             selected: _activeRoute == ECommerceRoutes.cartPage,
             onTap: () => _navigate(ECommerceRoutes.cartPage),
           ),
           ListTile(
             leading: Icon(Icons.person),
-            title: Text("User Settings"),
+            title: Text('User Settings'),
             selected: _activeRoute == ECommerceRoutes.userSettingsPage,
             onTap: () => _navigate(ECommerceRoutes.userSettingsPage),
           ),
           AboutListTile(
             icon: Icon(Icons.info),
-            applicationName: "Produce Store",
+            applicationName: 'Produce Store',
             aboutBoxChildren: <Widget>[
-              Text("Thanks for reading Flutter in Action!"),
+              Text('Thanks for reading Flutter in Action!'),
             ],
           ),
         ],

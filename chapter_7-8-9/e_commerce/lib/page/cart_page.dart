@@ -21,7 +21,8 @@ class CartPage extends StatelessWidget {
         StreamBuilder(
           stream: _bloc.cartItems,
           initialData: <String, int>{},
-          builder: (BuildContext context, AsyncSnapshot<Map<String, int>> snapshot) {
+          builder:
+              (BuildContext context, AsyncSnapshot<Map<String, int>> snapshot) {
             if (snapshot.data.keys.isEmpty) {
               return SliverFillRemaining(child: Text("Your cart is empty"));
             }
@@ -48,7 +49,8 @@ class CartPage extends StatelessWidget {
                         ),
                       ),
                       onDismissed: (DismissDirection dir) {
-                        _bloc.removeFromCartSink.add(RemoveFromCartEvent(_product, qty));
+                        _bloc.removeFromCartSink
+                            .add(RemoveFromCartEvent(_product, qty));
                         Scaffold.of(context).showSnackBar(
                           SnackBar(
                             backgroundColor: AppColors.primary,
@@ -56,7 +58,7 @@ class CartPage extends StatelessWidget {
                               "$_product removed from cart.",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline
+                                  .headline5
                                   .copyWith(color: AppColors.accentTextColor),
                             ),
                           ),
@@ -77,7 +79,7 @@ class CartPage extends StatelessWidget {
             child: Center(
               child: Text(
                 "Cart Total: 5.00",
-                style: Theme.of(context).textTheme.headline,
+                style: Theme.of(context).textTheme.headline5,
               ),
             ),
           ),

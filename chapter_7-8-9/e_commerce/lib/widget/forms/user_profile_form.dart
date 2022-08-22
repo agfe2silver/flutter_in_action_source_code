@@ -39,25 +39,29 @@ class _UserProfileFormState extends State<UserProfileForm> {
   }
 
   void onChangeName() {
-    if (_prevName == _nameController.text && _prevContact == _emailController.text) return;
+    if (_prevName == _nameController.text &&
+        _prevContact == _emailController.text) return;
     setState(() {
       _userInformationHasBeenUpdated = true;
     });
   }
 
   void onChangeEmail() {
-    if (_prevName == _nameController.text && _prevContact == _emailController.text) return;
+    if (_prevName == _nameController.text &&
+        _prevContact == _emailController.text) return;
     setState(() {
       _userInformationHasBeenUpdated = true;
     });
   }
 
-  FlatButton get submitButton => FlatButton(
+  TextButton get submitButton => TextButton(
         onPressed: _userInformationHasBeenUpdated
             ? () {
                 _bloc.updateUserInformationSink.add(
                   UpdateUserEvent(
-                    ECommerceUser(name: _nameController.text, contact: _emailController.text),
+                    ECommerceUser(
+                        name: _nameController.text,
+                        contact: _emailController.text),
                   ),
                 );
                 showDialog(
@@ -65,12 +69,12 @@ class _UserProfileFormState extends State<UserProfileForm> {
                     builder: (context) {
                       return AlertDialog(
                         content: Text(
-                            "Submitted Name: ${_nameController.text}, Submitted Contact: ${_emailController.text}"),
+                            'Submitted Name: ${_nameController.text}, Submitted Contact: ${_emailController.text}'),
                       );
                     });
               }
             : null,
-        child: Text("Submit info"),
+        child: Text('Submit info'),
       );
 
   @override
@@ -78,7 +82,7 @@ class _UserProfileFormState extends State<UserProfileForm> {
     Widget avatar = Padding(
         padding: EdgeInsets.all(8.0),
         child: CircleAvatar(
-          backgroundImage: AssetImage("assets/images/apple-in-hand.jpg"),
+          backgroundImage: AssetImage('assets/images/apple-in-hand.jpg'),
           radius: 60.0,
         ));
 
@@ -89,7 +93,7 @@ class _UserProfileFormState extends State<UserProfileForm> {
           child: TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: "Name:",
+              labelText: 'Name:',
             ),
             controller: _nameController,
           ),
@@ -98,7 +102,7 @@ class _UserProfileFormState extends State<UserProfileForm> {
           child: TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: "Contact:",
+              labelText: 'Contact:',
             ),
             controller: _emailController,
           ),
