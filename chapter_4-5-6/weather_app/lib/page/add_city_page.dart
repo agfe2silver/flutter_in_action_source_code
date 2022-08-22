@@ -43,7 +43,7 @@ class _AddNewCityPageState extends State<AddNewCityPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Add City",
+          'Add City',
           style: TextStyle(color: AppColor.textColorLight),
         ),
       ),
@@ -62,13 +62,15 @@ class _AddNewCityPageState extends State<AddNewCityPage> {
                   onSaved: (String val) => _newCity.name = val,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    helperText: "Required",
-                    labelText: "City name",
+                    helperText: 'Required',
+                    labelText: 'City name',
                   ),
                   autofocus: true,
-                  autovalidate: _formChanged,
+                  autovalidateMode: (_formChanged)
+                      ? AutovalidateMode.onUserInteraction
+                      : AutovalidateMode.disabled,
                   validator: (String val) {
-                    if (val.isEmpty) return "Field cannot be left blank";
+                    if (val.isEmpty) return 'Field cannot be left blank';
                     return null;
                   },
                 ),
@@ -80,12 +82,12 @@ class _AddNewCityPageState extends State<AddNewCityPage> {
                   onSaved: (String val) => print(val),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    helperText: "Optional",
-                    labelText: "State or Territory name",
+                    helperText: 'Optional',
+                    labelText: 'State or Territory name',
                   ),
                   validator: (String val) {
                     if (val.isEmpty) {
-                      return "Field cannot be left blank";
+                      return 'Field cannot be left blank';
                     }
                     return null;
                   },
@@ -103,7 +105,7 @@ class _AddNewCityPageState extends State<AddNewCityPage> {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Default city?"),
+                      Text('Default city?'),
                       Checkbox(
                         value: _isDefaultFlag,
                         onChanged: (val) {
@@ -122,9 +124,11 @@ class _AddNewCityPageState extends State<AddNewCityPage> {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: FlatButton(
-                        textColor: Colors.red[400],
-                        child: Text("Cancel"),
+                    child: TextButton(
+                        style: TextButton.styleFrom(
+                          primary: Colors.red[400],
+                        ),
+                        child: Text('Cancel'),
                         onPressed: () async {
                           if (await _onWillPop()) {
                             Navigator.of(context).pop(false);
@@ -133,9 +137,11 @@ class _AddNewCityPageState extends State<AddNewCityPage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: RaisedButton(
-                      color: Colors.blue[400],
-                      child: Text("Submit"),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        onPrimary: Colors.blue[400],
+                      ),
+                      child: Text('Submit'),
                       onPressed: _formChanged
                           ? () {
                               if (_formKey.currentState.validate()) {
@@ -181,16 +187,21 @@ class _AddNewCityPageState extends State<AddNewCityPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-              content: Text("Are you sure you want to abandon the form? Any changes will be lost."),
+              content: Text(
+                  'Are you sure you want to abandon the form? Any changes will be lost.'),
               actions: <Widget>[
-                FlatButton(
-                  child: Text("Cancel"),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    primary: Colors.black,
+                  ),
+                  child: Text('Cancel'),
                   onPressed: () => Navigator.of(context).pop(false),
-                  textColor: Colors.black,
                 ),
-                FlatButton(
-                  child: Text("Abandon"),
-                  textColor: Colors.red,
+                TextButton(
+                  style: TextButton.styleFrom(
+                    primary: Colors.red,
+                  ),
+                  child: Text('Abandon'),
                   onPressed: () => Navigator.pop(context, true),
                 ),
               ],
